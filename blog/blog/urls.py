@@ -29,3 +29,4 @@ urlpatterns = [
     path('', include(('users.urls', 'users'), namespace='users'))
     # path('', log)
 ]
+
