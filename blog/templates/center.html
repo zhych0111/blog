@@ -7,11 +7,12 @@
     <meta charset="utf-8">
     <!-- 网站标题 -->
     <title> 用户信息 </title>
+    {% load static %}
     <!-- 引入bootstrap的css文件 -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <!-- 引入vuejs -->
-    <script type="text/javascript" src="js/vue-2.5.16.js"></script>
-    <script type="text/javascript" src="js/axios-0.18.0.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/vue-2.5.16.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/axios-0.18.0.min.js' %}"></script>
 </head>
 
 <body>
@@ -22,7 +23,7 @@
     <div class="container">
         <!-- 导航栏商标 -->
         <div>
-            <a class="navbar-brand" href="index.html">个人博客</a>
+            <a class="navbar-brand" href="{% url 'home:index' %}">个人博客</a>
         </div>
     </div>
     <!--登录/个人中心-->
@@ -30,16 +31,16 @@
         <ul class="nav navbar-nav">
             <!-- 如果用户已经登录，则显示用户名下拉框 -->
             <li class="nav-item dropdown" v-if="is_login">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @click="show_menu_click">admin</a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @click="show_menu_click">[[username]]</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="display: block" v-show="show_menu">
-                    <a class="dropdown-item" href="write_blog.html">写文章</a>
-                    <a class="dropdown-item" href='./center.html'>个人信息</a>
-                    <a class="dropdown-item" href='#'>退出登录</a>
+                    <a class="dropdown-item" href="../static/write_blog.html">写文章</a>
+                    <a class="dropdown-item" href='{% url 'users:center' %}'>个人信息</a>
+                    <a class="dropdown-item" href='{% url 'users:logout' %}'>退出登录</a>
                 </div>
             </li>
             <!-- 如果用户未登录，则显示登录按钮 -->
             <li class="nav-item" v-else>
-                <a class="nav-link" href="login.html">登录</a>
+                <a class="nav-link" href="{% url 'users:login' %}">登录</a>
             </li>
 
         </ul>
@@ -59,7 +60,7 @@
                 </div>
                 <!--<br><h5 class="col-md-4">暂无头像</h5><br>-->
                 <br> <div class="col-md-4">头像</div>
-                <img src="img/mei.png" style="max-width: 20%;" class="col-md-4"><br>
+                <img src="../static/img/mei.png" style="max-width: 20%;" class="col-md-4"><br>
                     <!-- avatar -->
                     <div class="form-group col-md-4">
                         <label for="avatar">上传头像</label>
@@ -93,9 +94,9 @@
 </footer>
 </div>
 <!-- 引入js -->
-<script type="text/javascript" src="js/host.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
-<script type="text/javascript" src="js/center.js"></script>
+<script type="text/javascript" src="{% static 'js/host.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/common.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/center.js' %}"></script>
 </body>
 
 </html>

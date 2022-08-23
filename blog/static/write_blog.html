@@ -24,7 +24,7 @@
     <div class="container">
         <!-- 导航栏商标 -->
         <div>
-            <a class="navbar-brand" href="./index.html">个人博客</a>
+            <a class="navbar-brand" href="../templates/index.html">个人博客</a>
         </div>
     </div>
     <!--登录/个人中心-->
@@ -35,13 +35,13 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @click="show_menu_click">admin</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="display: block" v-show="show_menu">
                     <a class="dropdown-item" href="./write_blog.html">写文章</a>
-                    <a class="dropdown-item" href='./center.html'>个人信息</a>
+                    <a class="dropdown-item" href='../templates/center.html'>个人信息</a>
                     <a class="dropdown-item" href='#'>退出登录</a>
                 </div>
             </li>
             <!-- 如果用户未登录，则显示登录按钮 -->
             <li class="nav-item" v-else>
-                <a class="nav-link" href="./login.html">登录</a>
+                <a class="nav-link" href="../templates/login.html">登录</a>
             </li>
         </ul>
     </div>
