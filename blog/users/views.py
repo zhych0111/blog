@@ -300,12 +300,14 @@ class UserCenterView(LoginRequiredMixin, View):
         # 3.更新cookie中的username信息
         # 4.刷新当前页面(重定向操作)
         response = redirect(reverse('users:center'))
-        response.set_cookie('username', user.username, max_age=14*3600*24)
+        response.set_cookie('username', user.username, max_age=14 * 3600 * 24)
         # 5.返回响应
         return response
 
 
-from home.models import ArticleCategory
+from home.models import ArticleCategory, Article
+
+
 class WriteBlogView(LoginRequiredMixin, View):
     def get(self, request):
         # 查询所有分类模型
@@ -314,3 +316,38 @@ class WriteBlogView(LoginRequiredMixin, View):
             'categories': categories
         }
         return render(request, 'write_blog.html', context=context)
+
+    def post(self, request):
+        # 1.接收数据
+        avatar = request.FILES.get('avatar')
+        title = request.POST.get('title')
+        category_id = request.POST.get('category')
+        tags = request.POST.get('tags')
+        sumary = request.POST.get('sumary')
+        content = request.POST.get('content')
+        user = request.user
+        # 2.验证数据
+        # 验证参数是否齐全
+        if not all([avatar, title, category_id, sumary, content]):
+            return HttpResponseBadRequest('参数不全')
+        # 判断分类id
+        try:
+            category = ArticleCategory.objects.get(id=category_id)
+        except ArticleCategory.DoesNotExist:
+            return HttpResponseBadRequest('没有此分类')
+        # 3.数据入库
+        try:
+            article = Article.objects.create(
+                author=user,
+                avatar=avatar,
+                category=category,
+                tags=tags,
+                sumary=sumary,
+                content=content,
+                title=title
+            )
+        except Exception as e:
+            logger.error(e)
+            return HttpResponseBadRequest('发布失败，请稍后再试')
+        # 4.跳转到指定页面
+        return redirect(reverse('home:index'))

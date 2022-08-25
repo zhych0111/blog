@@ -4,6 +4,9 @@ from django.utils import timezone
 
 # Create your models here.
 
+from users.models import User
+
+
 class ArticleCategory(models.Model):
     """
     文章分类
@@ -38,7 +41,7 @@ class Article(models.Model):
     # 标签
     tags = models.CharField(max_length=20, blank=True)
     # 摘要
-    summary = models.CharField(max_length=200, null=False, blank=False)
+    sumary = models.CharField(max_length=200, null=False, blank=False)
     # 文章正文
     content = models.TextField()
     # 浏览量
@@ -46,7 +49,7 @@ class Article(models.Model):
     # 评论量
     comment_count = models.PositiveIntegerField(default=0)
     # 文章的创建时间
-    created = models.DateTimeField(timezone.now)
+    created = models.DateTimeField(default=timezone.now, null=True)
     # 文章的修改时间
     updated = models.DateTimeField(auto_now=True)
 
